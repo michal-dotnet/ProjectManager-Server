@@ -62,16 +62,19 @@ builder.Services.AddOpenApi(options =>
 });
 builder.Services.AddHttpContextAccessor();
 
-// CORS: מאפשר לצד הלקוח (React, Vite Dev Server - רץ על פורט אחר) לקרוא
-// ל-API. מוגדר מפורש (לא AllowAnyOrigin) - רק המקורות של שרת הפיתוח של
-// Vite, כולל Authorization Header (ה-JWT) ו-Content-Type.
+// CORS: מאפשר לצד הלקוח (React) לקרוא ל-API. מוגדר מפורש (לא AllowAnyOrigin) -
+// גם מקורות הפיתוח המקומיים (Vite Dev Server), וגם הכתובת האמיתית של ה-Client
+// הפרוס ב-Render, כולל Authorization Header (ה-JWT) ו-Content-Type.
 const string ClientCorsPolicy = "ClientCorsPolicy";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(ClientCorsPolicy, policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173", "http://127.0.0.1:5173")
+            .WithOrigins(
+                "http://localhost:5173",
+                "http://127.0.0.1:5173",
+                "https://projectmanager-client-c6w3.onrender.com")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
