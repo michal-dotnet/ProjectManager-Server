@@ -1,0 +1,17 @@
+# מוציא מה-Build Context של Docker כל מה שלא צריך (מהיר יותר, ולא שולח
+# תיקיות ענקיות/ספציפיות ל-Windows ל-Docker daemon לחינם).
+
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+
+# ה-Client וה-Tests לא חלק מה-Image הזה בכלל (ראו הערה ב-Dockerfile).
+projectManager2Client/
+projectManager2Tests/
+
+.git/
+.gitignore
+README.md
+*.user
+*.md

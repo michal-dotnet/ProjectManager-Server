@@ -1,0 +1,40 @@
+## ===== .NET (projectManager2 / Core / Data / Service / Tests) =====
+
+# תוצרי Build - נבנים מחדש בכל קומפילציה, אין טעם לשמור ב-Git
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Xx]64/
+[Xx]86/
+
+# הגדרות פנימיות של Visual Studio
+.vs/
+*.user
+*.suo
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# תוצאות בדיקות
+[Tt]est[Rr]esult*/
+*.trx
+
+## ===== projectManager2Client =====
+
+# ה-Client הוא ריפו נפרד משלו (Git init עצמאי בתוך התיקייה שלו, עם
+# .gitignore משלו שם) - כדי שהריפו של השרת לא "יבלע" אותו, כל התיקייה
+# מתעלמת ממנה כאן לגמרי.
+projectManager2Client/
+
+## ===== כלליים =====
+
+# קבצי מערכת הפעלה
+.DS_Store
+Thumbs.db
+
+# קבצי עורך
+.idea/
+*.swp

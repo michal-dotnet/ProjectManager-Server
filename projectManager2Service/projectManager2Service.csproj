@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <!-- Microsoft.AspNetCore.Identity.PasswordHasher<T>/PasswordVerificationResult
+         (AuthService.cs, DataSeeder.cs) - הפרויקט הזה הוא Class Library רגיל
+         (Microsoft.NET.Sdk, לא Sdk.Web), אז ה-Shared Framework של ASP.NET Core
+         לא זמין לו אוטומטית וצריך את החבילה הזו במפורש. -->
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.0" />
+    <!-- JwtSecurityToken/JwtSecurityTokenHandler/SigningCredentials/SymmetricSecurityKey/
+         SecurityAlgorithms (AuthService.cs, יצירת ה-JWT בהתחברות/הרשמה) - מאותה סיבה
+         כמו למעלה: Class Library רגיל לא מקבל את החבילות האלה אוטומטית
+         (בניגוד לפרויקט ה-Api, שמקבל אותן דרך Microsoft.AspNetCore.Authentication.JwtBearer). -->
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\projectManager2Core\projectManager2Core.csproj" />
+    <ProjectReference Include="..\projectManager2Data\projectManager2Data.csproj" />
+  </ItemGroup>
+
+</Project>
