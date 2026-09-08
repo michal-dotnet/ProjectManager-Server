@@ -142,12 +142,16 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Seed Data חד-פעמי ואידמפוטנטי (ראו DataSeeder) - מריץ בכל עליית
-// האפליקציה, אחרי שה-Migrations כבר הורצו ידנית (Update-Database), כדי
-// שהמערכת תהיה שמישה מיד: משתמשי דמו לכל Role, Event ו-Tasks לדוגמה.
-using (var seedScope = app.Services.CreateScope())
+// Migrate + Seed Data - רצים אוטומטית בכל עליית האפליקציה, בתוך התהליך
+// עצמו (לא ידנית מ-Package Manager Console). זה הכרחי בסביבת הענן (Render):
+// שם האפליקציה עצמה מתחברת למסד מתוך התשתית של Render, בלי לעבור דרך
+// שום רשת חיצונית - כך שהמסד "מוכן" גם בלי צורך בהרצת Update-Database
+// ידנית ממחשב מפתחת כלשהו. MigrateAsync אידמפוטנטי: מריץ רק Migrations
+// שעוד לא הוחלו, ולא עושה כלום אם המסד כבר מעודכן.
+using (var migrationScope = app.Services.CreateScope())
 {
-    var context = seedScope.ServiceProvider.GetRequiredService<DataContext>();
+    var context = migrationScope.ServiceProvider.GetRequiredService<DataContext>();
+    await context.Database.MigrateAsync();
     await DataSeeder.EnsureSeededAsync(context);
 }
 
